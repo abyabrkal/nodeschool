@@ -15,3 +15,20 @@
   command-line argument.
 
  **************************/
+
+var fs = require('fs');
+
+function getNewLine(callback) {
+  fs.readFile(process.argv[2], function doneReading(err, buffer) {
+    var str = buffer.toString();
+    var arr = str.split('\n');
+    var count = arr.length - 1;
+    callback(count);
+  })
+}
+
+function logCount(myNumber) {
+  console.log(myNumber)
+}
+
+getNewLine(logCount);
