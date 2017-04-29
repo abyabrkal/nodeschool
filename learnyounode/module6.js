@@ -1,9 +1,14 @@
 /**************************
  Node.JS
- 27.Apr.2017
+ 29.Apr.2017
 
  Core: LearnYouNode
- -- program6a.js
+ -- module6.js
+  GENERAL MODULE FILE WHICH WILL BE EXPORTED and
+  made available for other programs for use
+  This module takes in path, filter and callback function from
+  any program (calling this module)
+
 
  ## MAKE IT MODULAR (Exercise 6 of 13)
 
@@ -25,18 +30,26 @@
 
  **************************/
 
-var mod6 = require('./module6.js');
 
+module.exports = function(path, filter, callback) {
 
+    var fs = require('fs');
 
-function log(err, data) {
-    if (err === null){
-        console.log("Error");
-    } else {
-        for (item in data){
-            console.log(data[item]);
+    //function getNewLine(callback) {
+    fs.readdir(path, function doneReading(err, list) {
+
+        if (err) {
+            callback(err);
+        } else {
+
+            var ext = '.' + filter;
+
+            var newList = list.filter(function(name){
+                    return (name.endsWith(ext) == true);
+            });
+
+            callback(null, newList);
         }
-    }
+    })
+    //}
 }
-
-mod6(process.argv[2], process.argv[3], log);
