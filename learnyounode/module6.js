@@ -34,8 +34,8 @@ var fs = require('fs');
 
 module.exports = function(path, filter, callback) {
 
-    console.log(path + '-' + filter + '-' + callback);
-    //function getNewLine(callback) {
+    //console.log(path + '**' + filter + '**');
+
     fs.readdir(path, function doneReading(err, list) {
 
         if (err) {
@@ -44,12 +44,11 @@ module.exports = function(path, filter, callback) {
 
             var ext = '.' + filter;
 
-            var newList = list.filter(function(name){
-                    return (name.endsWith(ext) == true);
+            var newList = list.filter(function(fname){
+                    return (fname.endsWith(ext) === true);
             });
 
-            return callback(null, newList);
+            callback(null, newList);
         }
     })
-    //}
 }
