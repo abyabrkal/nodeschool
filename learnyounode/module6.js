@@ -29,17 +29,17 @@
   4. Handle all the errors that may occur and pass them to the callback.
 
  **************************/
+var fs = require('fs');
 
 
 module.exports = function(path, filter, callback) {
 
-    var fs = require('fs');
-
+    console.log(path + '-' + filter + '-' + callback);
     //function getNewLine(callback) {
     fs.readdir(path, function doneReading(err, list) {
 
         if (err) {
-            callback(err);
+            return callback(err);
         } else {
 
             var ext = '.' + filter;
@@ -48,7 +48,7 @@ module.exports = function(path, filter, callback) {
                     return (name.endsWith(ext) == true);
             });
 
-            callback(null, newList);
+            return callback(null, newList);
         }
     })
     //}

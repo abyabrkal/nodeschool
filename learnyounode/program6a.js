@@ -28,7 +28,6 @@
 var mod6 = require('./module6.js');
 
 
-
 function log(err, data) {
     if (err === null){
         console.log("Error");
