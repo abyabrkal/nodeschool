@@ -13,15 +13,6 @@
   "data" event from the response to a new line on the console (stdout).
   For this exercise you will need to use the http core module.
 
-  Official Solution:
-  var http = require('http')
-
-   http.get(process.argv[2], function (response) {
-     response.setEncoding('utf8')
-     response.on('data', console.log)
-     response.on('error', console.error)
-   }).on('error', console.error)
-
  **************************/
 
  var http = require('http');
@@ -48,3 +39,19 @@
  }
 
  getURLResponse(process.argv[2], log);
+
+
+
+
+ /************************************************
+ Official Solution:
+ *************************************************
+ var http = require('http')
+
+  http.get(process.argv[2], function (response) {
+    response.setEncoding('utf8')
+    response.on('data', console.log)
+    response.on('error', console.error)
+  }).on('error', console.error)
+
+ ************************************************/
