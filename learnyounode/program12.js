@@ -17,8 +17,7 @@
 **************************/
 
 var http = require('http');
-var fs = require('fs');
-var map = require('through2-map');
+//var map = require('through2-map');
 
 
 http.createServer((req, res) => {
@@ -32,7 +31,7 @@ http.createServer((req, res) => {
     });
 
     var pData = [];
-    if(req.method == 'POST'){
+    if(req.method === 'POST'){
         req.on('data', (chunk) => {
             pData.push(chunk);
         }).on('end', () => {
@@ -40,7 +39,8 @@ http.createServer((req, res) => {
             res.end(pData);
         });
 
-
+    } else {
+        console.log("Not a POST");
     }
 
 
