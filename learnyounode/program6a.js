@@ -29,8 +29,8 @@ var mod6 = require('./module6.js');
 
 
 function log(err, data) {
-    if (err === null){
-        console.log("Error");
+    if (err){
+        console.error(err);
     } else {
         for (item in data){
             console.log(data[item]);
@@ -39,3 +39,25 @@ function log(err, data) {
 }
 
 mod6(process.argv[2], process.argv[3], log);
+
+
+/****************************************
+           Official Solution
+***************************************
+//program.js
+
+var filterFn = require('./solution_filter.js')
+var dir = process.argv[2]
+var filterStr = process.argv[3]
+
+filterFn(dir, filterStr, function (err, list) {
+  if (err) {
+    return console.error('There was an error:', err)
+  }
+
+  list.forEach(function (file) {
+    console.log(file)
+  })
+})
+
+*******************************************/
