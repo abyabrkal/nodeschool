@@ -17,8 +17,6 @@
   of characters received from the server. The second line should contain the
   complete String of characters sent by the server.
 
-  Official Solution:
-
 
  **************************/
 
@@ -38,3 +36,24 @@ http.get(process.argv[2], function(response){
     }));
 
 });// end of http
+
+
+
+/************************************************
+Official Solution:
+*************************************************
+var http = require('http')
+var bl = require('bl')
+
+http.get(process.argv[2], function (response) {
+  response.pipe(bl(function (err, data) {
+    if (err) {
+      return console.error(err)
+    }
+    data = data.toString()
+    console.log(data.length)
+    console.log(data)
+  }))
+})
+
+************************************************/
