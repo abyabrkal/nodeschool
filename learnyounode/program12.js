@@ -18,36 +18,53 @@
 
 var http = require('http');
 var fs = require('fs');
+var map = require('through2-map');
 
 
-var server = http.createServer((req, res) => {
+http.createServer((req, res) => {
+    req.on('error', (err) => {
+        console.error(err);
+        res.statusCode = 400;
+        res.end();
+    });
+    res.on('error', (err) => {
+        console.error(err);
+    });
 
-    var src = fs.createReadStream(process.argv[3]);
+    var pData = [];
+    if(req.method == 'POST'){
+        req.on('data', (chunk) => {
+            pData.push(chunk);
+        }).on('end', () => {
+            pData = Buffer.concat(pData).toString().toUpperCase();
+            res.end(pData);
+        });
 
-    src.pipe(res);
+
+    }
 
 
-});
-
-
-server.listen(process.argv[2]);
-
-
+}).listen(process.argv[2]);
 
 
 
  /************************************************
  Official Solution:
  *************************************************
- var http = require('http')
- var fs = require('fs')
 
- var server = http.createServer(function (req, res) {
-   res.writeHead(200, { 'content-type': 'text/plain' })
+     var http = require('http')
+     var map = require('through2-map')
 
-   fs.createReadStream(process.argv[3]).pipe(res)
- })
+     var server = http.createServer(function (req, res) {
+       if (req.method !== 'POST') {
+         return res.end('send me a POST\n')
+       }
 
- server.listen(Number(process.argv[2]))
+       req.pipe(map(function (chunk) {
+         return chunk.toString().toUpperCase()
+       })).pipe(res)
+     })
+
+     server.listen(Number(process.argv[2]))
 
  ************************************************/
